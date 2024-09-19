@@ -1,13 +1,24 @@
 package es.plantquest.ecommerce.model;
 
+import jakarta.persistence.*;
+
 import java.util.Date;
 
+@Entity
 public class Orden {
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
     private String numero;
     private Date fechaCreacion;
     private Date fechaRecibida;
     private double total;
+
+    @ManyToOne
+    private Usuario usuario;
+
+    @OneToOne (mappedBy = "orden")
+    private DetalleOrden detalleOrden;
 
     public Orden() {
     }
@@ -60,6 +71,22 @@ public class Orden {
         this.total = total;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public DetalleOrden getDetalleOrden() {
+        return detalleOrden;
+    }
+
+    public void setDetalleOrden(DetalleOrden detalleOrden) {
+        this.detalleOrden = detalleOrden;
+    }
+
     @Override
     public String toString() {
         return "Orden{" +
@@ -68,6 +95,7 @@ public class Orden {
                 ", fechaCreacion=" + fechaCreacion +
                 ", fechaRecibida=" + fechaRecibida +
                 ", total=" + total +
+                ", usuario=" + usuario +
                 '}';
     }
 }

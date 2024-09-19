@@ -1,11 +1,24 @@
 package es.plantquest.ecommerce.model;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
 public class DetalleOrden {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
     private double cantidad;
     private double precio;
     private double total;
+
+    @OneToOne
+    private Orden orden;
+
+    @ManyToOne
+    private Producto productos;
 
     public DetalleOrden() {
     }
@@ -57,6 +70,24 @@ public class DetalleOrden {
     public void setTotal(double total) {
         this.total = total;
     }
+
+    public Orden getOrden() {
+        return orden;
+    }
+
+    public void setOrden(Orden orden) {
+        this.orden = orden;
+    }
+
+    public Producto getProductos() {
+        return productos;
+    }
+
+    public void setProductos(Producto productos) {
+        this.productos = productos;
+    }
+
+
 
     @Override
     public String toString() {
